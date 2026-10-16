@@ -1,0 +1,22 @@
+@namespace clase_4.Components
+
+<EditForm Model="this" FormName="ejercicio" onsubmit="sumar">
+    <div>
+        <label for="">Digite la edad: </label>
+        <input type="number" @bind-value="edad">
+        
+    </div>
+    <button type="submit">Sumar</button>
+</EditForm>
+
+<p>La edad acumulada es de: @acumulador</p>
+
+@code{
+    int edad, acumulador;
+
+    void sumar()
+    {
+        acumulador += edad;
+
+    }
+}

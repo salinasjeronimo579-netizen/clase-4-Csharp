@@ -1,0 +1,45 @@
+@namespace clase_4.Components
+
+<div>
+    <label for="">Digite el precio por kilo: </label>
+    <input type="number" @bind="precioKilo">
+</div>
+
+@for (int i = 0; i < 5; i++)
+{
+    int posicion = i;
+    int n = i + 1;
+    <div>
+        <label for="">Digite los kilos del cliente @n: </label>
+        <input type="number" @bind="kilos[posicion]">
+    </div>
+}
+<button @onclick="calcular">Calcular</button>
+
+@code {
+    double precioKilo;
+    double[] kilos = new double[5];
+    double[] pagos = new double[5];
+    double total = 0;
+
+    void calcular()
+    {
+        total = 0;
+        for (int i = 0; i < kilos.Length; i++)
+        {
+            pagos[i] = kilos[i] * precioKilo;
+            if (kilos[i] > 10)
+            {
+                pagos[i] = pagos[i] - (pagos[i] * 0.15);
+            }
+            total += pagos[i];
+        }
+    }
+}
+
+@for (int i = 0; i < pagos.Length; i++)
+{
+    int n = i + 1;
+    <p>El cliente @n paga: @pagos[i]</p>
+}
+<p>La tienda percibe en total: @total</p>

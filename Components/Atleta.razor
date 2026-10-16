@@ -1,0 +1,51 @@
+@namespace clase_4.Components
+
+@for (int i = 0; i < 5; i++)
+{
+    int posicion = i;
+    int n = i + 1;
+    <div>
+        <label for="">Digite el tiempo (minutos) del día @n: </label>
+        <input type="number" @bind="tiempos[posicion]">
+    </div>
+}
+<button @onclick="calcular">Evaluar</button>
+
+@code {
+    double[] tiempos = new double[5];
+    double promedio = 0;
+    int mayoresA16 = 0;
+    string resultado = "";
+
+    void calcular()
+    {
+        double suma = 0;
+        mayoresA16 = 0;
+        for (int i = 0; i < tiempos.Length; i++)
+        {
+            suma += tiempos[i];
+            if (tiempos[i] > 16)
+            {
+                mayoresA16 += 1;
+            }
+        }
+        promedio = suma / tiempos.Length;
+
+        bool condicion1 = mayoresA16 == 0;   // ninguna prueba mayor a 16 min
+        bool condicion2 = mayoresA16 >= 1;   // al menos una prueba mayor a 16 min
+        bool condicion3 = promedio <= 15;    // promedio menor o igual a 15 min
+
+        if (condicion1 || condicion2 || condicion3)
+        {
+            resultado = "El atleta es apto para la prueba de 5 kilómetros";
+        }
+        else
+        {
+            resultado = "El atleta debe buscar otra especialidad";
+        }
+    }
+}
+
+<p>El promedio de tiempos es: @promedio</p>
+<p>Pruebas con tiempo mayor a 16 minutos: @mayoresA16</p>
+<p>@resultado</p>

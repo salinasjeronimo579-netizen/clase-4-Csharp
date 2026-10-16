@@ -1,0 +1,59 @@
+@namespace clase_4.Components
+
+<EditForm Model="this" FormName="numeros positivos" OnSubmit="calcular">
+
+
+
+    <div>
+        <label for="">num 1</label>
+        <input type="number" @bind-value="num1">
+    </div>
+    <div>
+        <label for="">num 2</label>
+        <input type="number" @bind-value="num2">
+    </div>
+    <div>
+        <label for="">num 3</label>
+        <input type="number" @bind-value="num3">
+    </div>
+
+
+    <button type="submit">Calcular</button>
+</EditForm>
+
+@code {
+
+    int num1, num2, num3;
+    int positivos = 0;
+    int negativos = 0;
+    int neutros = 0;
+    List<int> numeros = new List<int>();
+    
+    void calcular()
+    {
+        positivos = 0;
+        negativos = 0;
+        neutros = 0;
+        
+        numeros = new List<int>() { num1, num2, num3 };
+        @for (int i = 0; i < numeros.Count; i++)
+        {
+            if (numeros[i] > 0)
+            {
+                positivos += 1;
+            }
+            else if (numeros[i] == 0)
+            {
+                neutros += 1;
+            }
+            else
+            {
+                negativos += 1;
+            }
+        }
+    }
+}
+
+<p>La cantidad de números negativos es: @negativos</p>
+<p>La cantidad de números neutros es: @neutros</p>
+<p>La cantidad de números positivos es: @positivos</p>

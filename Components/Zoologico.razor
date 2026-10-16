@@ -1,0 +1,82 @@
+@namespace clase_4.Components
+
+<select @bind="animal" @bind:after="cambiarAnimal">
+    <option value="">Seleccione el animal: </option>
+    <option value="elefantes">elefantes</option>
+    <option value="jirafas">jirafas</option>
+    <option value="chimpances">chimpancés</option>
+</select>
+
+@for (int i = 0; i < edades.Length; i++)
+{
+    int posicion = i;
+    int n = i + 1;
+    <div>
+        <label for="">Digite la edad del animal @n: </label>
+        <input type="number" @bind="edades[posicion]">
+    </div>
+}
+
+@if (edades.Length > 0)
+{
+    <button @onclick="calcular">Calcular</button>
+}
+
+@code {
+    string animal = "";
+    double[] edades = new double[0];
+    double porcentaje1 = 0;
+    double porcentaje2 = 0;
+    double porcentaje3 = 0;
+
+    void cambiarAnimal()
+    {
+        switch (animal)
+        {
+            case "elefantes":
+                edades = new double[5];
+                break;
+            case "jirafas":
+                edades = new double[5];
+                break;
+            case "chimpances":
+                edades = new double[5];
+                break;
+            default:
+                edades = new double[0];
+                break;
+        }
+        porcentaje1 = 0;
+        porcentaje2 = 0;
+        porcentaje3 = 0;
+    }
+
+    void calcular()
+    {
+        int categoria1 = 0;
+        int categoria2 = 0;
+        int categoria3 = 0;
+        for (int i = 0; i < edades.Length; i++)
+        {
+            if (edades[i] <= 1)
+            {
+                categoria1 += 1;
+            }
+            else if (edades[i] > 1 && edades[i] < 3)
+            {
+                categoria2 += 1;
+            }
+            else
+            {
+                categoria3 += 1;
+            }
+        }
+        porcentaje1 = (double)categoria1 / edades.Length * 100;
+        porcentaje2 = (double)categoria2 / edades.Length * 100;
+        porcentaje3 = (double)categoria3 / edades.Length * 100;
+    }
+}
+
+<p>Porcentaje de 0 a 1 año: @porcentaje1 %</p>
+<p>Porcentaje de más de 1 año y menos de 3: @porcentaje2 %</p>
+<p>Porcentaje de 3 o más años: @porcentaje3 %</p>

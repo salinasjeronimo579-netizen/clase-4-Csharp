@@ -1,0 +1,43 @@
+@namespace clase_4.Components
+
+@for (int i = 0; i < 5; i++)
+{
+    int posicion = i;
+    int n = i + 1;
+    <div>
+        <label for="">Digite los puntos contaminantes del automóvil @n: </label>
+        <input type="number" @bind="puntos[posicion]">
+    </div>
+}
+<button @onclick="calcular">Calcular</button>
+
+@code {
+    double[] puntos = new double[5];
+    double promedio = 0;
+    double menor = 0;
+    double mayor = 0;
+
+    void calcular()
+    {
+        double suma = 0;
+        menor = puntos[0];
+        mayor = puntos[0];
+        for (int i = 0; i < puntos.Length; i++)
+        {
+            suma += puntos[i];
+            if (puntos[i] < menor)
+            {
+                menor = puntos[i];
+            }
+            if (puntos[i] > mayor)
+            {
+                mayor = puntos[i];
+            }
+        }
+        promedio = suma / puntos.Length;
+    }
+}
+
+<p>El promedio de puntos contaminantes es: @promedio</p>
+<p>El carro que menos contaminó tuvo: @menor puntos</p>
+<p>El carro que más contaminó tuvo: @mayor puntos</p>

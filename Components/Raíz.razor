@@ -1,0 +1,58 @@
+@namespace clase_4.Components
+
+<EditForm Model="this" FormName="sacar raíces" OnSubmit="calcular">
+
+
+
+    <div>
+        <label for="">num 1</label>
+        <input type="number" @bind-value="num1">
+    </div>
+    <div>
+        <label for="">num 2</label>
+        <input type="number" @bind-value="num2">
+    </div>
+    <div>
+        <label for="">num 2</label>
+        <input type="number" @bind-value="num3">
+    </div>
+
+
+    <button type="submit">Calcular</button>
+</EditForm>
+
+
+
+@code {
+    int cubo, cuarta, num1, num2, num3;
+    
+    List<int> numeros = new List<int>();
+
+    List<Dictionary<string, int>> resultados1 = new List<Dictionary<string, int>>();
+    void calcular()
+    {
+        resultados1.Clear();
+        numeros = new List<int>() { num1, num2, num3 };
+        @for (int n = 0; n < numeros.Count; n++)
+        {
+            cubo = numeros[n] * numeros[n] * numeros[n];
+            cuarta = numeros[n] * cubo;
+
+            resultados1.Add(new Dictionary<string, int>{
+                {"numero", numeros[n]},
+                {"cubo", cubo},
+                {"cuarta", cuarta}
+            });
+        }
+        
+
+        
+    }
+
+}
+
+@foreach (var r in resultados1)
+{
+    <p>Número: @r["numero"] | Cubo: @r["cubo"] | Cuarta: @r["cuarta"]</p>
+}
+
